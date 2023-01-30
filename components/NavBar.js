@@ -4,9 +4,25 @@ import styles from "./NavBar.module.css";
 export default function NavBar() {
   const router = useRouter();
   return (
-    <nav className={styles.nav}>
-      <Link href="/">Home</Link>
-      <Link href="/about">About</Link>
+    <nav>
+      <Link href="/">
+        <div
+          className={`${styles.link} ${
+            router.pathname === "/" ? styles.active : ""
+          }`}
+        >
+          Home
+        </div>
+      </Link>
+      <Link href="/about">
+        <div
+          className={`${styles.link} ${
+            router.pathname === "/about" ? styles.active : ""
+          }`}
+        >
+          About
+        </div>
+      </Link>
     </nav>
   );
 }
