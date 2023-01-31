@@ -4,8 +4,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/contact",
-        destination: "/form",
+        source: "/old-blog/:path*",
+        destination: "/new-blog/:path*",
         permanent: false,
       },
     ];
