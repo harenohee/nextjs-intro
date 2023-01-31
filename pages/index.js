@@ -7,10 +7,11 @@ export default function Home() {
   useEffect(() => {
     // 즉시실행 함수
     (async () => {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-      );
-      const json = await res.json();
+      const res = await (
+        await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
+        )
+      ).json();
     })();
   }, []);
   return (
