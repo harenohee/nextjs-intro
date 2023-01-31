@@ -1,25 +1,11 @@
 // import NavBar from "components/NavBar";
 import Seo from "@/components/Seo";
 import { useState, useEffect } from "react";
-const API_KEY = "d1a1c244c551297374694671a4b518e2";
-export default function Home() {
-  const [movies, setMovies] = useState();
-  useEffect(() => {
-    // 즉시실행 함수
-    (async () => {
-      const { results } = await (
-        await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-        )
-      ).json();
-      setMovies(results);
-    })();
-  }, []);
+export default function Home({ results }) {
   return (
     <div className="container">
       <Seo title="Home" />
-      {!movies && <h4>Loading...</h4>}
-      {movies?.map((movie) => (
+      {results?.map((movie) => (
         <div className="movie" key={movie.id}>
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>{movie.original_title}</h4>
@@ -48,4 +34,15 @@ export default function Home() {
       `}</style>
     </div>
   );
+}
+export async function getServerSideProps() {
+  // 여기에 API KEY 작성 시 절대 client에게 보이지 않는다.
+  const { results } = await (
+    await fetch(`http://localhost:3000/api/movies`)
+  ).json();
+  return {
+    props: {
+      results,
+    },
+  };
 }
